@@ -3,32 +3,33 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        Map<User, BankAccount> users = new HashMap<>();
+        Map<String, User> users = new HashMap<>();
 
-        User firstUser = new User("Иван","Иванов","WO5N441KM3");
-        User secondUser = new User("Петр","Петров","42NJO985VI");
+        User firstUser = new User("Иван","Иванов");
+        User secondUser = new User("Петр","Петров");
 
-        BankAccount fisrtUserBankAccount = new BankAccount("R13JWF31G3", 0);
-        BankAccount secondUserBankAccount = new BankAccount("YH9Q8831VF", 0);
+        String firstUserID = "WO5N441KM3";
+        String secondUserID = "42NJO985VI";
 
-        users.put(firstUser, fisrtUserBankAccount);
-        users.put(secondUser, secondUserBankAccount);
+        users.put(firstUserID, firstUser);
+        users.put(secondUserID, secondUser);
 
-        User currentUser = firstUser;
+        String currentUserID = firstUserID;
+        User currentUser = users.get(currentUserID);
 
-        BankAccount bankAccountInformation = users.get(currentUser);
+        if (currentUser != null) {
+            System.out.println("Пользовательская информация: \n" + currentUser);
+            System.out.println("Идентификационный номер: " + currentUserID);
 
-        if (bankAccountInformation != null) {
-            System.out.println("Пользовательская информация: \n" + currentUser + "\n" + bankAccountInformation);
+            users.remove(currentUserID);
 
-            users.remove(currentUser);
-            if (users.get(currentUser) == null) {
-                System.out.println("Пользователь c идентификационным номером \"" + currentUser.getUserID() + "\" удален");
+            if (users.get(currentUserID) == null) {
+                System.out.println("Пользователь c идентификационным номером \"" + currentUserID + "\" удален");
             } else {
                 System.out.println("Ошибка при удалении пользователя");
             }
         } else {
-            System.out.println("Пользователь " + currentUser + " не найден");
+            System.out.println("Пользователь c идентификационным номером " + currentUserID + " не найден");
         }
     }
 }
